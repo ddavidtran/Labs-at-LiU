@@ -1,0 +1,7 @@
+CC = icpc
+CXXFLAGS = -std=c++11 -openmp
+CXXLIB = -cxxlib=/software/apps/gcc/4.9.0/build01/
+GXXNAME = -gxx-name=g++.orig
+
+myprogram: laplsolv.cpp
+	$(CC) -o myprogram $(CXXFLAGS) $(CXXLIB) $(GXXNAME) laplsolv.cpp

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lab1 2018 Dashboard</title>
+  <link rel="stylesheet" href="./static/lib/css//bootstrap.min.css">
+  <link rel="stylesheet" href="./static/lib/css/keen-dashboards.css">
+  <link rel="stylesheet" href="./static/lib/css/dc.css">
+  <link rel="stylesheet" href="./static/css/main.css">
+
+</head>
+<body class="application">
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="./">Lab1 2018 Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+
+      <div class="row">
+
+          <!-- Map -->
+          <div class="col-sm-6">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Map Chart
+              </div>
+              <div class="chart-stage">
+                <div id="world-map"></div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Scatter plot -->
+          <div class="col-sm-6">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Scatter Plot
+              </div>
+              <div class="chart-stage">
+                <div id="scatter-plot"></div>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+      <!-- PC plot -->
+      <div class="row">
+          <div class="col-sm-12">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                PC Chart
+              </div>
+              <div class="chart-stage">
+                <div id="pc-chart"></div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+    </div> <!-- contriner -->
+
+
+  <script src="./static/lib/js/jquery.min.js"></script>
+  <script src="./static/lib/js/bootstrap.min.js"></script>
+  <script src="./static/lib/js/d3.min.js"></script>
+  <script src="https://d3js.org/topojson.v2.min.js"></script>
+  <script src="./static/lib/js/queue.js"></script>
+  <!-- Modules -->
+  <script src='./static/js/map.js' type='text/javascript'></script>
+  <script src='./static/js/pc.js' type='text/javascript'></script>
+  <script src='./static/js/sp.js' type='text/javascript'></script>
+  <script src='./static/js/main.js' type='text/javascript'></script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+
+PHASE 1: contains
+
+"airborne" in the tree
+"stop" not in the tree
+"yelp" in the tree
+"Sweden" not in the tree
+"obligations" in the tree
+"unbridled" in the tree
+
+PHASE 2: BiIterator, operator++
+
+a
+abstractor
+aerobic
+airborne
+awning
+babel
+blades
+boy's
+butt's
+clowning
+demorgan
+descendent
+ferrite
+finding
+greenware
+imitate
+industriously
+intuitions
+kited
+knotted
+labellers
+meaningless
+obligations
+pauses
+permutations
+pressures
+quebec
+saber's
+sesame
+species
+tithes
+unbridled
+wade
+wilting
+yelp
+
+PHASE 3: BiIterator, operator--
+
+yelp
+wilting
+wade
+unbridled
+tithes
+species
+sesame
+saber's
+quebec
+pressures
+permutations
+pauses
+obligations
+meaningless
+labellers
+knotted
+kited
+intuitions
+industriously
+imitate
+greenware
+finding
+ferrite
+descendent
+demorgan
+clowning
+butt's
+boy's
+blades
+babel
+awning
+airborne
+aerobic
+abstractor
+a
+
+Finished testing

@@ -1,0 +1,8 @@
+/*/cmake-build-debug/
+/*/.idea/
+/*/CPPTest/cmake-build-debug/
+/*/CPPTest/.idea/
+/*/CPPTest/blurc
+/*/CPPTest/thresc
+/*/CPPTest/*.o
+.Rproj.user

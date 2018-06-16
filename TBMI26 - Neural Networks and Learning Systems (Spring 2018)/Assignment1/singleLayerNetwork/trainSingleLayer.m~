@@ -1,0 +1,46 @@
+function [Wout, trainingError, testError ] = trainSingleLayer(Xt,Dt,Xtest,Dtest, W0,numIterations, learningRate )
+%TRAINSINGLELAYER Trains the network (Learning)
+%   Inputs:
+%               X* - Trainin/test features (matrix)
+%               D* - Training/test desired output of net (matrix)
+%               W0 - Weights of the neurons (matrix)
+%
+%   Output:
+%               Wout - Weights after training (matrix)
+%               Vout - Weights after training (matrix)
+%               trainingError - The training error for each iteration
+%                               (vector)
+%               testError - The test error for each iteration
+%                               (vector)
+
+% Initiate variables
+trainingError = nan(numIterations+1,1);
+testError = nan(numIterations+1,1);
+Nt = size(Xt,2);
+Ntest = size(Xtest,2);
+Wout = W0';
+
+% Calculate initial error
+Yt = runSingleLayer(Xt, W0);
+Ytest = runSingleLayer(Xtest, W0);
+trainingError(1) = sum(sum((Yt - Dt).^2))/Nt;
+testError(1) = sum(sum((Ytest - Dtest).^2))/Ntest;
+
+for n = 1:numIterations
+    Y = Wout(1:3)*Xt;
+    Y1 = Y * Wout(4) + Wout(5);
+    Y2 = Y * Wout(6) + Wout(7);
+    if(Y2 > Y1)
+       Y = Y2;
+    else
+       Y = Y1;
+    end
+    
+    grad_w =0;
+    
+    Wout = Wout - learningRate*grad_w;
+    trainingError(1+n) = sum(sum((Y - Dt).^2))/Nt;
+    %testError(1+n) = sum(sum((Wout(1:3)*Xtest - Dtest).^2))/Ntest;
+end
+end
+

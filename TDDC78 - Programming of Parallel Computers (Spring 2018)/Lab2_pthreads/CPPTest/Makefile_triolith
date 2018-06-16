@@ -1,0 +1,19 @@
+
+EXECS=blurc thresc
+CC = icpc
+CXXFLAGS = -std=c++11 -pthread -lrt
+CXXLIB = -cxxlib=/software/apps/gcc/4.9.0/build01/
+GXXNAME = -gxx-name=g++.orig
+
+all: ${EXECS}
+
+clean:
+	rm -f ${EXECS}
+
+blurc: blurmain.cpp
+	$(CC) -o blurc $(CXXFLAGS) $(CXXLIB) $(GXXNAME) blurmain.cpp blurfilter.cpp
+	
+
+thresc: thresmain.cpp
+	$(CC) -o thresc $(CXXFLAGS) $(CXXLIB) $(GXXNAME) thresmain.cpp thresfilter.cpp
+	

@@ -1,0 +1,115 @@
+PHASE 0: insert
+
+T1
+20
+  10
+     5
+    15
+      12
+        14
+  30
+    25
+    35
+      33
+
+
+PHASE 1: findMin, FindMax
+
+Min = 5
+Max = 35
+
+PHASE 2: contains
+
+2 not in the tree
+4 not in the tree
+6 not in the tree
+8 not in the tree
+10 in the tree
+12 in the tree
+14 in the tree
+16 not in the tree
+18 not in the tree
+20 in the tree
+22 not in the tree
+24 not in the tree
+26 not in the tree
+28 not in the tree
+30 in the tree
+32 not in the tree
+34 not in the tree
+
+PHASE 3: copy constructor
+
+T2
+20
+  10
+     5
+    15
+      12
+        14
+  30
+    25
+    35
+      33
+
+
+PHASE 4: makeEmpty
+
+T2
+Empty tree
+
+
+PHASE 5: operator=
+
+T2
+20
+  10
+     5
+    15
+      12
+        14
+  30
+    25
+    35
+      33
+
+
+
+PHASE 6: get_parent
+
+Parent of node 14: 12
+Parent of node 10: 20
+Parent of node 33: 35
+Parent of node 20: 0
+Parent of node 28: 0
+
+PHASE 7: remove
+
+remove 0
+remove 2
+remove 4
+remove 6
+remove 8
+remove 10
+remove 12
+remove 14
+remove 16
+remove 18
+remove 20
+remove 22
+remove 24
+remove 26
+remove 28
+remove 30
+remove 32
+remove 34
+
+T1
+25
+  15
+     5
+  35
+    33
+
+
+Finished testing

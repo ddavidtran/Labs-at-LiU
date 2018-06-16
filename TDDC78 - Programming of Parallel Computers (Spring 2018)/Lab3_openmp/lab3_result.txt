@@ -1,0 +1,249 @@
+Iterations: 1
+Cores: 1
+Thread rank: 0
+Number of iterations: 558
+CPU time used: 0.315831 s
+Cores: 2
+Thread rank: 0
+Thread rank: 1
+Number of iterations: 558
+CPU time used: 0.17284 s
+Cores: 4
+Thread rank: 0
+Thread rank: 3
+Thread rank: 1
+Thread rank: 2
+Number of iterations: 568
+CPU time used: 0.0903618 s
+Cores: 8
+Thread rank: 3
+Thread rank: 0
+Thread rank: 2
+Thread rank: 6
+Thread rank: 4
+Thread rank: 7
+Thread rank: 5
+Thread rank: 1
+Number of iterations: 604
+CPU time used: 0.0544059 s
+Cores: 16
+Thread rank: 0
+Thread rank: 8
+Thread rank: 5
+Thread rank: 2
+Thread rank: 7
+Thread rank: 6
+Thread rank: 15
+Thread rank: 10
+Thread rank: 4
+Thread rank: 9
+Thread rank: 3
+Thread rank: 1
+Thread rank: 12
+Thread rank: 11
+Thread rank: 14
+Thread rank: 13
+Number of iterations: 364
+CPU time used: 0.0251541 s
+
+--------------------------------------------------
+
+Iterations: 2
+Cores: 1
+Thread rank: 0
+Number of iterations: 558
+CPU time used: 0.317932 s
+Cores: 2
+Thread rank: 0
+Thread rank: 1
+Number of iterations: 558
+CPU time used: 0.170514 s
+Cores: 4
+Thread rank: 3
+Thread rank: 0
+Thread rank: 1
+Thread rank: 2
+Number of iterations: 568
+CPU time used: 0.091068 s
+Cores: 8
+Thread rank: 3
+Thread rank: 0
+Thread rank: 7
+Thread rank: 2
+Thread rank: 5
+Thread rank: 4
+Thread rank: 6
+Thread rank: 1
+Number of iterations: 604
+CPU time used: 0.053062 s
+Cores: 16
+Thread rank: 4
+Thread rank: 1
+Thread rank: 3
+Thread rank: 13
+Thread rank: 6
+Thread rank: 8
+Thread rank: 7
+Thread rank: 0
+Thread rank: 5
+Thread rank: 10
+Thread rank: 2
+Thread rank: 11
+Thread rank: 9
+Thread rank: 12
+Thread rank: 14
+Thread rank: 15
+Number of iterations: 364
+CPU time used: 0.111147 s
+
+--------------------------------------------------
+
+
+Iterations: 3
+Cores: 1
+Thread rank: 0
+Number of iterations: 558
+CPU time used: 0.317019 s
+Cores: 2
+Thread rank: 0
+Thread rank: 1
+Number of iterations: 558
+CPU time used: 0.172381 s
+Cores: 4
+Thread rank: 3
+Thread rank: 0
+Thread rank: 1
+Thread rank: 2
+Number of iterations: 568
+CPU time used: 0.09214 s
+Cores: 8
+Thread rank: 2
+Thread rank: 6
+Thread rank: 0
+Thread rank: 7
+Thread rank: 4
+Thread rank: 1
+Thread rank: 5
+Thread rank: 3
+Number of iterations: 604
+CPU time used: 0.051841 s
+Cores: 16
+Thread rank: 0
+Thread rank: 2
+Thread rank: 4
+Thread rank: 8
+Thread rank: 3
+Thread rank: 12
+Thread rank: 1
+Thread rank: 11
+Thread rank: 6
+Thread rank: 10
+Thread rank: 7
+Thread rank: 9
+Thread rank: 15
+Thread rank: 13
+Thread rank: 14
+Number of iterations: 364
+CPU time used: 0.025609 s
+
+--------------------------------------------------
+
+
+Iterations: 4
+Cores: 1
+Thread rank: 0
+Number of iterations: 558
+CPU time used: 0.317536 s
+Cores: 2
+Thread rank: 0
+Thread rank: 1
+Number of iterations: 558
+CPU time used: 0.17296 s
+Cores: 4
+Thread rank: 0
+Thread rank: 1
+Thread rank: 2
+Thread rank: 3
+Number of iterations: 568
+CPU time used: 0.0911369 s
+Cores: 8
+Thread rank: 2
+Thread rank: 3
+Thread rank: 1
+Thread rank: 6
+Thread rank: 4
+Thread rank: 5
+Thread rank: 0
+Thread rank: 7
+Number of iterations: 604
+CPU time used: 0.053947 s
+Cores: 16
+Thread rank: 4
+Thread rank: 7
+Thread rank: 11
+Thread rank: 8
+Thread rank: 15
+Thread rank: 5
+Thread rank: 14
+Thread rank: 6
+Thread rank: 13
+Thread rank: 12
+Thread rank: 1
+Thread rank: 10
+Thread rank: 9
+Thread rank: 0
+Thread rank: 3
+Thread rank: 2
+Number of iterations: 364
+CPU time used: 0.0668111 s
+
+--------------------------------------------------
+
+
+Iterations: 5
+Cores: 1
+Thread rank: 0
+Number of iterations: 558
+CPU time used: 0.315975 s
+Cores: 2
+Thread rank: 0
+Thread rank: 1
+Number of iterations: 558
+CPU time used: 0.174947 s
+Cores: 4
+Thread rank: 0
+Thread rank: 1
+Thread rank: 2
+Thread rank: 3
+Number of iterations: 568
+CPU time used: 0.090241 s
+Cores: 8
+Thread rank: 6
+Thread rank: 5
+Thread rank: 2
+Thread rank: 0
+Thread rank: 3
+Thread rank: 4
+Thread rank: 1
+Thread rank: 7
+Number of iterations: 604
+CPU time used: 0.053721 s
+Cores: 16
+Thread rank: 0
+Thread rank: 8
+Thread rank: 13
+Thread rank: 10
+Thread rank: 15
+Thread rank: 12
+Thread rank: 7
+Thread rank: 5
+Thread rank: 1
+Thread rank: 6
+Thread rank: 11
+Thread rank: 14
+Thread rank: 3
+Thread rank: 4
+Thread rank: 2
+Thread rank: 9
+Number of iterations: 364
+CPU time used: 0.0564921 s

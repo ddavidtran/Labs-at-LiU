@@ -1,0 +1,174 @@
+% Load face and non-face data and plot a few examples
+clc
+clear
+load faces;
+load nonfaces;
+faces = double(faces);
+nonfaces = double(nonfaces);
+
+%Inputs
+iterations = 20;
+nClassifiers = 15;
+nbrHaarFeatures = 70;
+nbrTrainExamples = 100;
+nbrTestExamples = 50;
+maxWeight = 3; % Times the initial weight
+
+faultCounter = zeros(1, nbrTestExamples*2);
+
+for x = 1:iterations
+
+colormap gray;
+for k=1:25
+    %subplot(5,5,k), imagesc(faces(:,:,10*k));
+    axis image;
+    axis off;
+end
+
+colormap gray;
+for k=1:25
+    %subplot(5,5,k), imagesc(nonfaces(:,:,10*k));
+    axis image;
+    axis off;
+end
+
+% Generate Haar feature masks
+haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
+
+%figure(3);
+colormap gray;
+for k = 1:25
+    %subplot(5,5,k),imagesc(haarFeatureMasks(:,:,k),[-1 2]);
+    axis image;
+    axis off;
+end
+
+% Create a training data set with a number of training data examples
+% from each class. Non-faces = class label y=-1, faces = class label y=1
+trainImages = cat(3,faces(:,:,1:nbrTrainExamples),nonfaces(:,:,1:nbrTrainExamples));
+xTrain = ExtractHaarFeatures(trainImages,haarFeatureMasks);
+yTrain = [ones(1,nbrTrainExamples), -ones(1,nbrTrainExamples)];
+
+%% Implement the AdaBoost training here
+%  Use your implementation of WeakClassifier and WeakClassifierError
+n = size(xTrain, 2); 
+D = ones(1, n) ./ n; 
+P = ones(1,nClassifiers);
+T = ones(1,nClassifiers);
+C = zeros(1,nClassifiers);
+alpha = ones(1, nClassifiers);
+
+for c = 1:nClassifiers
+    best_wc = 0;
+    minError = Inf;
+    for k = 1:nbrHaarFeatures
+        threshold = xTrain(k,:);
+        
+        for t = threshold %Iterate through all thresholds. Find minimum error for every weak classifier.
+            p = 1;
+            wc = WeakClassifier(t,p,xTrain(k,:));
+            error = WeakClassifierError(wc, D, yTrain);
+
+            if error > 0.5
+                p = -p;
+                error = 1 - error;
+            end
+
+            if error < minError %If new error is less than minimum error, then update parameters.
+                C(c) = k;
+                P(c) = p;
+                T(c) = t;
+                best_wc = p*wc; %Switch with polarity.
+                minError = error;
+            end
+        end  
+    
+    end
+   
+    alpha(c) = real(0.5*log((1-minError)/minError));
+    D = D.*exp(-alpha(c) * (yTrain .* best_wc));
+    D(D > maxWeight*(1/n)) = maxWeight*(1/n); %Weight trimming outliers.
+    D = D./sum(D);  
+    
+end
+
+%% Extract test data
+
+testImages  = cat(3,faces(:,:,(nbrTrainExamples+1):(nbrTrainExamples+nbrTestExamples)),...
+                    nonfaces(:,:,(nbrTrainExamples+1):(nbrTrainExamples+nbrTestExamples)));
+xTest = ExtractHaarFeatures(testImages,haarFeatureMasks);
+yTest = [ones(1,nbrTestExamples), -ones(1,nbrTestExamples)];
+
+%% Evaluate your strong classifier here
+%  You can evaluate on the training data if you want, but you CANNOT use
+%  this as a performance metric since it is biased. You MUST use the test
+%  data to truly evaluate the strong classifier.
+Dn = size(yTest,2);
+DnTrain = size(yTrain,2);
+
+weakH = zeros(nClassifiers, Dn);
+weakHTrain = zeros(nClassifiers, DnTrain);
+accTest = zeros(nClassifiers, 1);
+accTrain = zeros(nClassifiers, 1);
+
+for c = 1:nClassifiers
+    feat = C(c);
+    weakH(c,:) = alpha(c) * WeakClassifier(T(c),P(c),xTest(feat,:));
+    strongH = sign(sum(weakH,1));
+    classifier = strongH.*yTest;
+    accTest(c) = size(classifier(1==classifier),2) / Dn;
+    
+    weakHTrain(c,:) = alpha(c) * WeakClassifier(T(c),P(c),xTrain(feat,:));
+    strongHTrain = sign(sum(weakHTrain,1));
+    classifierTrain = strongHTrain.*yTrain;
+    accTrain(c) = size(classifierTrain(1==classifierTrain),2) / DnTrain;
+    
+end 
+
+ %H(x) = sum(alphat * ht(x)) in slides.
+ 
+ classifier(classifier == 1) = 0;
+ classifier = classifier * -1;
+ faultCounter = faultCounter + classifier;
+
+%% Plot the error of the strong classifier as function of the number of weak classifiers.
+%  Note: you can find this error without re-training with a different
+%  number of weak classifiers.
+max(accTest)
+max(accTrain)
+
+figure(1)
+plot(accTest, 'red')
+hold on
+plot(accTrain, 'blue')
+ylim([0.5,1])
+legend("Test", "Train",'Location', 'east')
+
+end
+
+figure(2)
+plot(faultCounter, 'o')
+ylim([-1, inf])
+[M, I] = maxk(faultCounter,5);
+
+figure(3)
+for k=1:length(I)
+    if I(k) <= nbrTestExamples
+        %figure(2 + k)
+        subplot(3,3,k), imagesc(faces(:,:,10*I(k)));
+        axis image;
+        axis off;
+    end
+end
+colormap gray;
+
+figure(4)
+for k=1:length(I)
+    if I(k) > nbrTestExamples
+        %figure(7 + k)
+        subplot(3,3,k), imagesc(nonfaces(:,:,10*I(k)));
+        axis image;
+        axis off;
+    end
+end
+colormap gray;

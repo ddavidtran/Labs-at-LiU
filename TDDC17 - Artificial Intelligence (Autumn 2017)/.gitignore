@@ -1,0 +1,9 @@
+/.idea/
+/**/.idea/
+/**/.metadata
+/**/.recommenders
+/**/.classpath
+/**/.project
+/*/.settings
+/**/lab1_workspace/project/tddc17/*.class
+/**/lab1_workspace/.metadata/

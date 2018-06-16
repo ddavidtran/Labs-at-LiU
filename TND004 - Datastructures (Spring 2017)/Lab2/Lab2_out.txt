@@ -1,0 +1,86 @@
+TEST PHASE 0: default and conversion constructor
+
+S1 = Set is empty!
+
+S2 = { -4 }
+
+TEST PHASE 1: constructor from an array
+
+S3 = { 1 3 5 }
+
+S4 = { 2 3 4 }
+
+TEST PHASE 2: copy constructor
+
+S5 = { 1 3 5 }
+
+TEST PHASE 3: operator=
+
+S1 = { 1 3 5 }
+
+S2 = { 1 3 5 }
+
+TEST PHASE 4: is_member
+
+S1.is_member(1) ? T
+S1.is_member(2) ? F
+S1.is_member(3) ? T
+S1.is_member(4) ? F
+S1.is_member(5) ? T
+
+S1.is_member(99999) ? F
+
+TEST PHASE 5: cardinality and make_empty
+
+S1.cardinality() = 3
+S1 becomes the empty set ...
+S1.cardinality() = 0
+
+TEST PHASE 6: operator+=, operator*=, operator-=
+
+S5 = { 1 2 3 4 5 }
+
+S4 = { 2 3 4 }
+
+S1 = Set is empty!
+
+TEST PHASE 7: union, intersection, and difference
+
+S1 = { 1 2 3 4 5 }
+
+S2 = { 3 }
+
+S3 = { 1 3 5 }
+
+S4 = { 2 3 4 }
+
+S5 = { 1 5 }
+
+S2 + S1 * S5 = { 1 3 5 }
+
+TEST PHASE 8: equality, subset, strict subset
+
+S4 == S1 ? F
+S4!== S1 ? T
+S4 <= S1 ? T
+S4 <  S1 ? T
+
+TEST PHASE 9: mixed-mode arithmetic
+
+S2 = Set is empty!
+
+S5 = { 3 4 24 }
+
+TEST PHASE 10: move constructor
+
+*ptr_S = { 2 3 4 24 }
+
+S5 = { 3 4 24 }
+
+std::move(*ptr_S) * S5 = { 3 4 24 }
+
+TEST PHASE 11: move assignment operator
+
+S5 = { 0 1 2 3 4 5 }
+
+Ending ....

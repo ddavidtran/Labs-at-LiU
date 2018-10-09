@@ -6,6 +6,7 @@ import client.MESSAGE;
 import java.io.*;
 import java.net.*;
 import javax.net.ssl.*;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.*;
 import java.util.StringTokenizer;
@@ -58,7 +59,7 @@ public class SecureAdditionServer {
 			SSLServerSocketFactory sslServerFactory = sslContext.getServerSocketFactory();
 			SSLServerSocket sss = (SSLServerSocket) sslServerFactory.createServerSocket( port );
 			sss.setEnabledCipherSuites( sss.getSupportedCipherSuites() );
-			
+
 			System.out.println("\n>>>> SecureAdditionServer: active ");
 			SSLSocket incoming = (SSLSocket)sss.accept();
 
@@ -69,51 +70,33 @@ public class SecureAdditionServer {
 			while(!(option = in.readLine()).equals("")){
 				switch (option) {
 					case "1":
-						String fileToDownload;
-						if(!(fileToDownload = in.readLine()).equals("")){
-							download(fileToDownload, out);
-						}
-						break;
+						String fileToDownload = in.readLine();
+                        download(fileToDownload, out);
+                        out.println("SERVER:: Successfully downloaded the file " + fileToDownload);
+                        break;
 					case "2":
 					    String fileToUpload = in.readLine();
-                        System.out.println(fileToUpload);
-                        String fileLine;
-                        while(!(fileLine = in.readLine()).equals("")){
-                            uploadGivenFile(fileLine, fileToUpload);
-                        }
-                        out.println("Uploading file...");
+                        uploadGivenFile(fileToUpload, out);
+                        out.println("SERVER:: Successfully uploaded the file " + fileToUpload.split("client/")[1]);
 						break;
 					case "3":
-						out.println("Delete file...");
+					    String fileToDelete = in.readLine();
+                        fileToDelete(fileToDelete, out);
+                        out.println("SERVER:: Successfully deleted the file " + fileToDelete);
 						break;
 					default:
-						out.println("Invalid option received from the client.");
+						out.println("SERVER:: Invalid option received from the client.");
 						break;
 				}
 			}
-			/*while ( !(str = in.readLine()).equals("") ) {
-				double result = 0;
-				StringTokenizer st = new StringTokenizer( str );
-				try {
-					while( st.hasMoreTokens() ) {
-						Double d = new Double( st.nextToken() );
-						result += d.doubleValue();
-					}
-					out.println( "The result is " + result );
-				}
-				catch( NumberFormatException nfe ) {
-					out.println( "Sorry, your list contains an invalid number" );
-				}
-			}*/
 			incoming.close();
 		}
-		catch( Exception x ) {
-			System.out.println( x );
-			x.printStackTrace();
+		catch( Exception e ) {
+			System.out.println( e );
+			e.printStackTrace();
 		}
 	}
 
-	/* Lab3 implementation */
 	public void download(String filename, PrintWriter client){
         try(BufferedReader br = new BufferedReader(new FileReader(currentDir+"/"+filename));
             FileOutputStream out = new FileOutputStream(currentDir.split("server")[0]+"client/"+filename)){
@@ -124,29 +107,47 @@ public class SecureAdditionServer {
                 out.write(b);
                 out.write("\n".getBytes());
             }
-            client.println("Successfully downloaded " + filename + "!");
+            out.close();
+            client.println("SERVER:: Successfully downloaded the file " + filename);
         }
-		catch ( Exception x ){
+		catch ( Exception e ){
             client.println(MESSAGE.TERMINATION.name()); //RST message.
-            client.println(x);
-			x.printStackTrace();
+            client.println("SERVER:: " + e);
+			e.printStackTrace();
         }
 	}
 
-	public void uploadGivenFile(String line, String filename){
-        try(FileOutputStream out = new FileOutputStream(currentDir.split("server")[0]+"client/"+filename)){
-            byte b[] = line.getBytes();
-            out.write(b);
-            out.write("\n".getBytes());
+	public void uploadGivenFile(String pathToFile, PrintWriter client){
+        try(BufferedReader br = new BufferedReader(new FileReader(pathToFile));
+            FileOutputStream out = new FileOutputStream(currentDir+ "/" + pathToFile.split("client/")[1])){
+            String currentLine = "";
+            while((currentLine = br.readLine()) != null){
+                byte b[] = currentLine.getBytes();
+                out.write(b);
+                out.write("\n".getBytes());
+            }
+            out.close();
+            client.println("SERVER:: Successfully uploaded the file " + pathToFile.split("client/")[1]);
         }
         catch(Exception e ){
-            System.out.println( e );
+            client.println(MESSAGE.TERMINATION.name()); //RST message.
+            client.println("SERVER:: " + e);
             e.printStackTrace();
         }
 	}
 
-	public void delete(){
-
+	public void fileToDelete(String filename, PrintWriter client){
+        try(BufferedReader br = new BufferedReader(new FileReader(currentDir+"/"+filename))){
+            File file = new File(currentDir+"/"+filename);
+            if(file.delete()){
+                client.println("SERVER:: Successfully deleted the file " + filename);
+            }
+        }
+        catch(Exception e ){
+            client.println(MESSAGE.TERMINATION.name()); //RST message.
+            client.println("SERVER:: " + e);
+            e.printStackTrace();
+        }
 	}
 	
 	

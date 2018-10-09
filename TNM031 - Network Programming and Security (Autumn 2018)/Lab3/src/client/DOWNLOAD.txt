@@ -1,4 +1,4 @@
 This is the file
-to be UPLOADED
+to be DOWNLOADED
 from the server
 to the client

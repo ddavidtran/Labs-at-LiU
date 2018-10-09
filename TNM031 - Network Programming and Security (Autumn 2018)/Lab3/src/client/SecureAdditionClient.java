@@ -76,59 +76,65 @@ public class SecureAdditionClient {
 						socketOut.println(option);
 						System.out.println("Please enter the filename to download: ");
                         String fileToDownload = scan.nextLine();
-                        if (!fileToDownload.isEmpty())
-                            try {
-                                socketOut.println(fileToDownload); //Send filename to server via SSL
-                                if (MESSAGE.TERMINATION.name().equals(socketIn.readLine())) {
-                                    System.out.println("Error from server side: \n" + socketIn.readLine());
-                                    return;
-                                }
+                        try {
+                            socketOut.println(fileToDownload); //Send filename to server via SSL
+                            if(socketIn.readLine().equals(MESSAGE.TERMINATION.name())){
                                 System.out.println(socketIn.readLine());
-                                break;
-                        } catch (Exception e) {
+                                return;
+                            }
+                        }catch (Exception e) {
                             System.out.println(e);
                             e.printStackTrace();
+                            return;
                         }
-                        else
-                            break;
+                        System.out.println(socketIn.readLine());
+                        break;
+
 					case "2":
 						socketOut.println(option);
                         System.out.println("Please enter the filename to upload: ");
                         String fileToUpload = scan.nextLine();
-                        socketOut.println(fileToUpload);
-                        try(BufferedReader br = new BufferedReader(new FileReader(currentDir+"/"+fileToUpload))){
-                            uploadToServer(fileToUpload, socketOut, socketIn, br);
+                        try{
+                            socketOut.println(currentDir+"/"+fileToUpload);  //Send filepath to server via SSL
+                            if(socketIn.readLine().equals(MESSAGE.TERMINATION.name())){
+                                System.out.println(socketIn.readLine());
+                                return;
+                            }
+                            System.out.println(socketIn.readLine());
+                            break;
                         } catch ( Exception e ){
                             System.out.println(e);
                             e.printStackTrace();
+                            return;
                         }
 
-                        /*socketOut.println(fileToUpload); //Send filename to server via SSL
-						System.out.println( socketIn.readLine() );*/
-
-						break;
 					case "3":
 						socketOut.println(option);
-						System.out.println("You picked option 3");
-						System.out.println( socketIn.readLine() );
-						break;
+                        System.out.println("Please enter the filename to delete: ");
+                        String fileToDelete = scan.nextLine();
+                        try{
+                            socketOut.println(fileToDelete);
+                            if(MESSAGE.TERMINATION.name().equals(socketIn.readLine())){
+                                System.out.println(socketIn.readLine());
+                                return;
+                            }
+                            System.out.println(socketIn.readLine());
+                            break;
+                        }catch ( Exception e ){
+                            System.out.println(e);
+                            e.printStackTrace();
+                            return;
+                        }
 				}
 			} while (!option.equals("q")); // end of loop
 
-			/*String numbers = "1.2 3.4 5.6";
-			System.out.println( ">>>> Sending the numbers " + numbers+ " to SecureAdditionServer" );
-			socketOut.println( numbers );
-			System.out.println( socketIn.readLine() );
-
-			socketOut.println ( "" );*/
 		}
-		catch( Exception x ) {
-			System.out.println( x );
-			x.printStackTrace();
+		catch( Exception e ) {
+			System.out.println( e );
+			e.printStackTrace();
 		}
 	}
 
-	/* Lab3 implementation */
 	public void displayMenu(){
 		System.out.println("\n*******************************");
 		System.out.println("Lab 3: Secure Sockets (SSL/TLS)");
@@ -142,37 +148,6 @@ public class SecureAdditionClient {
 		System.out.println("'q' to terminate the program!\n");
 		System.out.println("Enter here: ");
 	}
-
-	/*public boolean downloadFromServer(String filename, PrintWriter socketOut, BufferedReader socketIn){
-	    try{
-            socketOut.println(filename); //Send filename to server via SSL
-            if(MESSAGE.TERMINATION.name().equals(socketIn.readLine())){
-                System.out.println("Could not download "+ filename + " from the server");
-                return false;
-            }
-        }
-	    catch( Exception e ){
-            System.out.println(e);
-            e.printStackTrace();
-        }
-
-        return true;
-	}
-*/
-
-	public void uploadToServer(String filename, PrintWriter socketOut, BufferedReader socketIn, BufferedReader br) throws IOException {
-	    String currentLine = "";
-	    while((currentLine = br.readLine()) != null){
-            System.out.println(currentLine);
-	        socketOut.println(currentLine);
-        }
-    }
-
-	public void delete(){
-
-
-	}
-	
 	
 	// The test method for the class @param args Optional port number and host name
 	public static void main( String[] args ) {

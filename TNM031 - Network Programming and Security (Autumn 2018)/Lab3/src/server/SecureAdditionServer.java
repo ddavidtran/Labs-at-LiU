@@ -35,11 +35,13 @@ public class SecureAdditionServer {
 		try {
 
             //Creating empty keystore object and load KEYSTORE file.
-            KeyStore ks = KeyStore.getInstance( "JCEKS" );
+			//Keystore is a file to store the public key encryption key pair such as RSA.
+			KeyStore ks = KeyStore.getInstance( "JCEKS" );
 			ks.load( new FileInputStream( KEYSTORE ), KEYSTOREPASS.toCharArray() );
 
 			//Creating empty truststore object and load TRUSTSTORE file.
-            KeyStore ts = KeyStore.getInstance( "JCEKS" );
+			//Truststore is a file to store certificates
+			KeyStore ts = KeyStore.getInstance( "JCEKS" );
 			ts.load( new FileInputStream( TRUSTSTORE ), TRUSTSTOREPASS.toCharArray() );
 
             /*The SSL connection will require access to encryption keys and certificates. For that reason,
@@ -59,9 +61,23 @@ public class SecureAdditionServer {
 			SSLServerSocketFactory sslServerFactory = sslContext.getServerSocketFactory();
 			SSLServerSocket sss = (SSLServerSocket) sslServerFactory.createServerSocket( port );
 			sss.setEnabledCipherSuites( sss.getSupportedCipherSuites() );
+			sss.setNeedClientAuth(true);
 
 			System.out.println("\n>>>> SecureAdditionServer: active ");
 			SSLSocket incoming = (SSLSocket)sss.accept();
+
+			/*
+			SSL/TLS handshake steps:
+			1. Client sends message to server requesting a SSL connection. Client provides a list of ciphersuites.
+			2. Server responds by sending its certificate (public key and recommended ciphersuite)
+			3. Client use Server's certificate and creates a Certificate Authority (CA) (contains name of the certificate and public key)
+			   Client sends encrypted data using Server's public key and sends it to Server.
+			4. Server decrypts with its private key.
+			5. Client and Server generate session key. Session key is now secret and shared that client and server share.
+			6. Client and Server exchange messages acknowledging that the handshake is complete.
+			   Future messages are now encrypted in the session.
+			 */
+
 
 			BufferedReader in = new BufferedReader( new InputStreamReader( incoming.getInputStream() ) );
 			PrintWriter out = new PrintWriter( incoming.getOutputStream(), true );			

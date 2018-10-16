@@ -1,4 +1,0 @@
-This is the file
-to be DOWNLOADED
-from the server
-to the client
